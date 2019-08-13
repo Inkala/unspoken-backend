@@ -14,6 +14,18 @@ const messageSchema = new Schema({
       type: ObjectId,
       ref: 'Like'
     }
+  ],
+  reactions: [
+    {
+      type: ObjectId,
+      ref: 'Reaction'
+    }
+  ],
+  comments: [
+    {
+      type: ObjectId,
+      ref: 'Comment'
+    }
   ]
 });
 

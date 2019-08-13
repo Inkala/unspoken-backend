@@ -8,6 +8,9 @@ const likeSchema = new Schema({
   userId: {
     type: ObjectId,
     ref: 'User'
+  },
+  new: {
+    type: Boolean
   }
 });
 
