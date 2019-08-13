@@ -6,7 +6,7 @@ An app to share thoughts and feelings and support others. People can create thei
 
 ## Models
 
-User model
+**User model**
 
 ```
 username - String // required // unique
@@ -14,7 +14,7 @@ password - String // required
 messages - [ObjectID<Messages>]
 ```
 
-Message model
+**Message model**
 
 ```
 message - String // required
@@ -23,21 +23,21 @@ reactions - [ObjectID<reactions>]
 comments - [ObjectID<comments>]
 ```
 
-Likes model
+**Likes model**
 
 ```
 userId - ObjectID<User> // required
 new - Boolean
 ```
 
-Reactions model
+**Reactions model**
 
 ```
 userId - ObjectID<User> // required
 new - Boolean
 ```
 
-Comments model
+**Comments model**
 
 ```
 comment - String // required
@@ -164,4 +164,4 @@ new - Boolean
 
 ### Git
 
-[Frontend repository](https://github.com/Inkala/backend)
+[Frontend repository](https://github.com/Inkala/unspoken)
