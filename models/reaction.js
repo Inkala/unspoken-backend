@@ -10,7 +10,8 @@ const reactionSchema = new Schema({
     ref: 'User'
   },
   new: {
-    type: Boolean
+    type: Boolean,
+    default: true
   }
 });
 

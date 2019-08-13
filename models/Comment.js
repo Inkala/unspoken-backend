@@ -9,8 +9,13 @@ const commentSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   },
+  content: {
+    type: String,
+    required: true
+  },
   new: {
-    type: Boolean
+    type: Boolean,
+    default: true
   }
 });
 

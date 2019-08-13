@@ -14,6 +14,8 @@ require('dotenv').config();
 const auth = require('./routes/auth');
 const messagesRouter = require('./routes/messages');
 const likesRouter = require('./routes/likes');
+const reactionsRouter = require('./routes/reactions');
+const commentsRouter = require('./routes/comments');
 
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -61,6 +63,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', auth);
 app.use('/messages', messagesRouter);
 app.use('/likes', likesRouter);
+app.use('/reactions', reactionsRouter);
+app.use('/comments', commentsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
