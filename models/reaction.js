@@ -13,6 +13,11 @@ const reactionSchema = new Schema({
     type: Boolean,
     default: true
   }
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 });
 
 const Reaction = mongoose.model('Reaction', reactionSchema);

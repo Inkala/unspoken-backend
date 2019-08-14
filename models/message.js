@@ -27,6 +27,11 @@ const messageSchema = new Schema({
       ref: 'Comment'
     }
   ]
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 });
 
 const Message = mongoose.model('Message', messageSchema);

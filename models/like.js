@@ -13,8 +13,12 @@ const likeSchema = new Schema({
     type: Boolean,
     default: true
   }
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 });
-
 const Like = mongoose.model('Like', likeSchema);
 
 module.exports = Like;
