@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.post('/:messageId', async (req, res, next) => {
   const { messageId } = req.params;
-  console.log('!!!', messageId);
   try {
     const reaction = await Reaction.create({});
     await Message.findByIdAndUpdate(messageId, { $push: { reactions: reaction._id } });

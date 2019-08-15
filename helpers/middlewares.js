@@ -3,6 +3,7 @@
 const createError = require('http-errors');
 
 exports.isLoggedIn = () => (req, res, next) => {
+  console.log('<<< from middleware >>>:\n', req.session.currentUser);
   if (req.session.currentUser) {
     next();
   } else {
