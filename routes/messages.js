@@ -23,4 +23,25 @@ router.post('/new', async (req, res, next) => {
   }
 });
 
+router.put('/:id/edit', async (req, res, next) => {
+  const { id } = req.params;
+  const message = req.body;
+  try {
+    const editedMessage = await Message.findByIdAndUpdate(id, message, { new: true });
+    res.status(200).json({ editedMessage });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete('/:id/delete', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await Message.findByIdAndDelete(id);
+    res.status(200).json({ message: 'Message deleted' });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
