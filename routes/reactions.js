@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const Reaction = require('../models/Reaction.js');
-const Message = require('../models/Message.js');
+const Reaction = require('../models/Reaction');
+const Message = require('../models/Message');
 const router = express.Router();
 
 router.post('/:messageId', async (req, res, next) => {
