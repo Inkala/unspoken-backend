@@ -2,6 +2,7 @@
 
 const express = require('express');
 const Message = require('../models/Message');
+const User = require('../models/User');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
@@ -13,10 +14,25 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id/', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const message = await Message.findById(id);
+    res.status(200).json({ message });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/new', async (req, res, next) => {
   const message = req.body;
   try {
     const newMessage = await Message.create(message);
+    const messageId = newMessage._id;
+    console.log('<<< MessageId >>>', messageId);
+    const userId = req.session.currentUser._id;
+    console.log('<<< UserId >>>', userId);
+    await User.findByIdAndUpdate(userId, { $push: { messages: messageId } });
     res.status(200).json(newMessage);
   } catch (error) {
     next(error);

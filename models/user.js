@@ -15,6 +15,10 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    new: {
+      type: Boolean,
+      default: true
+    },
     messages: [
       {
         type: ObjectId,
