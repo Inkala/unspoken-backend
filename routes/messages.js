@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const Message = require('../models/Message');
-const User = require('../models/User');
+const Message = require('../models/Message.js');
+const User = require('../models/User.js');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
