@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id/', async (req, res, next) => {
   const { id } = req.params;
   try {
-    const message = await Message.findById(id);
+    const message = await Message.findById(id).populate('likes');
     res.status(200).json({ message });
   } catch (error) {
     next(error);
@@ -25,13 +25,15 @@ router.get('/:id/', async (req, res, next) => {
 });
 
 router.post('/new', async (req, res, next) => {
-  const message = req.body;
+  const { username } = req.session.currentUser;
+  const message = {
+    content: req.body.content,
+    owner: username
+  };
   try {
     const newMessage = await Message.create(message);
     const messageId = newMessage._id;
-    console.log('<<< MessageId >>>', messageId);
     const userId = req.session.currentUser._id;
-    console.log('<<< UserId >>>', userId);
     await User.findByIdAndUpdate(userId, { $push: { messages: messageId } });
     res.status(200).json(newMessage);
   } catch (error) {

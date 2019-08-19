@@ -9,6 +9,10 @@ const messageSchema = new Schema({
     type: String,
     required: true
   },
+  owner: {
+    type: String,
+    required: true
+  },
   likes: [
     {
       type: ObjectId,
