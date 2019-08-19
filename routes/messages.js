@@ -54,8 +54,10 @@ router.put('/:id/edit', async (req, res, next) => {
 
 router.delete('/:id/delete', async (req, res, next) => {
   const { id } = req.params;
+  const userId = req.session.currentUser._id;
   try {
     await Message.findByIdAndDelete(id);
+    await User.findByIdAndUpdate(userId, { $pull: { messages: id } });
     res.status(200).json({ message: 'Message deleted' });
   } catch (error) {
     next(error);
