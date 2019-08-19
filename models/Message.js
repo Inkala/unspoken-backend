@@ -13,6 +13,17 @@ const messageSchema = new Schema({
     type: String,
     required: true
   },
+  category: {
+    type: String,
+    enum: [
+      'love',
+      'hate',
+      'nostalgia',
+      'family',
+      'friendship',
+      'other'
+    ]
+  },
   likes: [
     {
       type: ObjectId,
