@@ -17,7 +17,11 @@ router.get('/', async (req, res, next) => {
 router.get('/:id/', async (req, res, next) => {
   const { id } = req.params;
   try {
-    const message = await Message.findById(id).populate('likes');
+    const message = await Message
+      .findById(id)
+      .populate('likes')
+      .populate('reactions')
+      .populate('comments');
     res.status(200).json({ message });
   } catch (error) {
     next(error);

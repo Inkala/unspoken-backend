@@ -14,8 +14,12 @@ const {
   validationLoggin
 } = require('../helpers/middlewares');
 
-router.get('/me', isLoggedIn(), (req, res, next) => {
-  res.json(req.session.currentUser);
+router.get('/me', (req, res, next) => {
+  if (req.session.currentUser) {
+    res.status(200).json(req.session.currentUser);
+  } else {
+    res.status(401).json(req.sessionID);
+  }
 });
 
 router.post(
