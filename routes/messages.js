@@ -79,7 +79,7 @@ router.put('/:id/notifications', async (req, res, next) => {
       await Reaction.findByIdAndUpdate(reaction, { $set: { new: false } }, { new: true });
     });
     seenMessage.comments.map(async comment => {
-      const eee = await Comment.findByIdAndUpdate(comment, { $set: { new: false } }, { new: true });
+      await Comment.findByIdAndUpdate(comment, { $set: { new: false } }, { new: true });
     });
     res.status(200).json({ seenMessage });
   } catch (error) {
