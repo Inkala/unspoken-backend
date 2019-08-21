@@ -7,6 +7,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const User = require('../models/User');
+const Message = require('../models/Message');
 
 const {
   isLoggedIn,
@@ -73,10 +74,15 @@ router.post('/logout', isLoggedIn(), (req, res, next) => {
   return res.status(204).send();
 });
 
-router.get('/private', isLoggedIn(), (req, res, next) => {
-  res.status(200).json({
-    message: 'This is a private message'
-  });
+router.get('/myMessages', async (req, res, next) => {
+  const { username } = req.session.currentUser;
+  try {
+    const myMessages = await Message.find({ owner: username })
+      .populate('likes reactions comments');
+    res.status(200).json({ myMessages });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
