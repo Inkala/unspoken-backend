@@ -5,7 +5,9 @@ const Like = require('../models/Like');
 const Message = require('../models/Message');
 const router = express.Router();
 
-router.post('/:messageId', async (req, res, next) => {
+const { isLoggedIn } = require('../helpers/middlewares');
+
+router.post('/:messageId', isLoggedIn(), async (req, res, next) => {
   const { messageId } = req.params;
   const userId = req.session.currentUser._id;
   try {
@@ -17,7 +19,7 @@ router.post('/:messageId', async (req, res, next) => {
   }
 });
 
-router.delete('/:likeId/:messageId/delete', async (req, res, next) => {
+router.delete('/:likeId/:messageId/delete', isLoggedIn(), async (req, res, next) => {
   const { likeId, messageId } = req.params;
   try {
     await Like.findByIdAndDelete(likeId);

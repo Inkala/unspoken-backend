@@ -74,7 +74,7 @@ router.post('/logout', isLoggedIn(), (req, res, next) => {
   return res.status(204).send();
 });
 
-router.get('/myMessages', async (req, res, next) => {
+router.get('/myMessages', isLoggedIn(), async (req, res, next) => {
   const { username } = req.session.currentUser;
   try {
     const myMessages = await Message.find({ owner: username })
