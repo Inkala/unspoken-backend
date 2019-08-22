@@ -5,7 +5,9 @@ const Comment = require('../models/Comment');
 const Message = require('../models/Message');
 const router = express.Router();
 
-router.post('/:messageId/new', async (req, res, next) => {
+const { isLoggedIn } = require('../helpers/middlewares');
+
+router.post('/:messageId/new', isLoggedIn(), async (req, res, next) => {
   const { username } = req.session.currentUser;
   const { messageId } = req.params;
   const { newComment } = req.body;

@@ -8,6 +8,8 @@ const Reaction = require('../models/Reaction');
 const Comment = require('../models/Comment');
 const router = express.Router();
 
+const { isLoggedIn } = require('../helpers/middlewares');
+
 router.get('/', async (req, res, next) => {
   try {
     const messages = await Message.find();
@@ -28,7 +30,7 @@ router.get('/:id/', async (req, res, next) => {
   }
 });
 
-router.post('/new', async (req, res, next) => {
+router.post('/new', isLoggedIn(), async (req, res, next) => {
   const { username } = req.session.currentUser;
   const message = {
     content: req.body.content,
@@ -41,11 +43,12 @@ router.post('/new', async (req, res, next) => {
     await User.findByIdAndUpdate(userId, { $push: { messages: messageId } });
     res.status(200).json(newMessage);
   } catch (error) {
+    res.status(422).json({ message: 'Error 422!!!' });
     next(error);
   }
 });
 
-router.put('/:id/edit', async (req, res, next) => {
+router.put('/:id/edit', isLoggedIn(), async (req, res, next) => {
   const { id } = req.params;
   const message = req.body;
   try {
@@ -56,7 +59,7 @@ router.put('/:id/edit', async (req, res, next) => {
   }
 });
 
-router.delete('/:id/delete', async (req, res, next) => {
+router.delete('/:id/delete', isLoggedIn(), async (req, res, next) => {
   const { id } = req.params;
   const userId = req.session.currentUser._id;
   try {
@@ -68,7 +71,7 @@ router.delete('/:id/delete', async (req, res, next) => {
   }
 });
 
-router.put('/:id/notifications', async (req, res, next) => {
+router.put('/:id/notifications', isLoggedIn(), async (req, res, next) => {
   const { id } = req.params;
   try {
     const seenMessage = await Message.findById(id);
