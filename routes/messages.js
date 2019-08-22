@@ -41,6 +41,8 @@ router.post('/new', async (req, res, next) => {
     await User.findByIdAndUpdate(userId, { $push: { messages: messageId } });
     res.status(200).json(newMessage);
   } catch (error) {
+    res.status(422).json({ message: 'Error 422!!!' });
+
     next(error);
   }
 });
@@ -79,7 +81,7 @@ router.put('/:id/notifications', async (req, res, next) => {
       await Reaction.findByIdAndUpdate(reaction, { $set: { new: false } }, { new: true });
     });
     seenMessage.comments.map(async comment => {
-      const eee = await Comment.findByIdAndUpdate(comment, { $set: { new: false } }, { new: true });
+      await Comment.findByIdAndUpdate(comment, { $set: { new: false } }, { new: true });
     });
     res.status(200).json({ seenMessage });
   } catch (error) {
